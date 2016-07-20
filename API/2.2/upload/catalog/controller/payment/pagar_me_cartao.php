@@ -27,6 +27,7 @@ class ControllerPaymentPagarMeCartao extends Controller
         $data['text_information'] = $this->config->get('pagar_me_cartao_text_information');
         $data['url'] = $this->url->link('payment/pagar_me_cartao/confirm', '', 'SSL');
         $data['url2'] = $this->url->link('payment/pagar_me_cartao/error', '', 'SSL');
+        $this->data['payment_address_2'] = $order_info['payment_address_2'];
 
         /* Parcelas */
         Pagarme::setApiKey($this->config->get('pagar_me_cartao_api'));
@@ -209,7 +210,7 @@ class ControllerPaymentPagarMeCartao extends Controller
                 "email" => $order_info['email'],
                 "address" => array(
                     "street" => $order_info['payment_address_1'],
-                    "neighborhood" => $order_info['payment_address_2'],
+                    "neighborhood" => ($order_info['payment_address_2']) ? $order_info['payment_address_2'] : $this->request->post['payment_address_2'],
                     "zipcode" => $this->removeSeparadores($order_info['payment_postcode']),
                     "street_number" => $numero,
                     "complementary" => $complemento

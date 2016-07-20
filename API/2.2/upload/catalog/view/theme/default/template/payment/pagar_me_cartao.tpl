@@ -75,6 +75,14 @@
                 <input type="text" id="cpf_customer" value="" class="form-control"/>
             </div>
         </div>
+        <?php if (!$payment_address_2): ?>
+        <div class="input-block">
+            <label for="payment_address_2">Bairro</label>
+            <input type="text" id="payment_address_2" value=""/>
+        </div>
+        <?php else: ?>
+        <input type="hidden" id="payment_address_2" value="<?php echo $$payment_address_2; ?>"/>
+        <?php endif; ?>
         <div class="row">
             <div id="installmentsWrapper">
                 <div class="col-xs-12">
@@ -161,6 +169,10 @@
             break;
         }
 
+        if (!$("#payment_address_2").val() || !$("#cpf_customer").val()) {
+            hasErrors = true;
+        }
+
         if (hasErrors) {
             // realiza o tratamento de errors
             alert("Verifique se os dados informados estão corretos. Qualquer problema entre em contato com a loja.");
@@ -183,7 +195,8 @@
                         card_hash: $("#card_hash").val(),
                         installments: $("#installments").val(),
                         bandeira: $("#bandeira").val(),
-                        cpf_customer: $("#cpf_customer").val()
+                        cpf_customer: $("#cpf_customer").val(),
+                        payment_address_2: $("#payment_address_2").val()
                     },
                     success: function (response) {
                         if (response['error']) {

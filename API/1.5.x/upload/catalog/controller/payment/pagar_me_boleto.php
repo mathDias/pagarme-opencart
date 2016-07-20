@@ -16,6 +16,8 @@ class ControllerPaymentPagarMeBoleto extends Controller
         $this->data['text_information'] = $this->config->get('pagar_me_boleto_text_information');
         $this->data['url'] = $this->url->link('payment/pagar_me_boleto/confirm', '', 'SSL');
         $this->data['url2'] = $this->url->link('payment/pagar_me_boleto/error', '', 'SSL');
+
+
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/pagar_me_boleto.tpl')) {
             $this->template = $this->config->get('config_template') . '/template/payment/pagar_me_boleto.tpl';
         } else {
